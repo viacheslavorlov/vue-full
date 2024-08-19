@@ -2,47 +2,48 @@
   <div
     class="flex gap-2 flex-col justify-center items-center px-10 max-w-5xl mx-auto"
   >
-    <div class="flex gap-2 flex-col justify-center items-center">
-      <button class="border px-2 py-1 w-fit" @click="likes++">like</button>
-      <button class="border px-2 py-1 w-fit" v-on:click="dislikes++">
-        dislike
-      </button>
-    </div>
-    <div>
-      Количество лайков: <strong class="text-green-500">{{ likes }}</strong>
-    </div>
-    <div>
-      Количество дизлайков: <strong class="text-red-500">{{ dislikes }}</strong>
-    </div>
-    <button>click me</button>
-    <div class="flex gap-2 flex-col justify-center items-center">
-      <input type="text" class="border border-black w-full" />
-      <textarea
-        class="border border-black w-full"
-        name=""
-        id=""
-        cols="30"
-        rows="10"
-      ></textarea>
-    </div>
+    <post-form @create="createPost" />
+    <post-list :posts="posts" />
   </div>
-  <Posts />
 </template>
 
 <script>
+import PostList from "./components/PostList.vue";
+import PostForm from "./components/PostForm.vue";
 export default {
+  components: { PostList, PostForm },
   data() {
     return {
-      likes: 0,
-      dislikes: 0,
+      posts: [
+        {
+          id: 1,
+          title: "Post 1",
+          body: "Body 1",
+        },
+        {
+          id: 2,
+          title: "Post 2",
+          body: "Body 2",
+        },
+        {
+          id: 3,
+          title: "Post 3",
+          body: "Body 3",
+        },
+      ],
     };
   },
   methods: {
-    addLike() {
-      this.likes++;
-    },
-    addDislike() {
-      this.dislikes++;
+    createPost(post) {
+      console.log(post);
+      this.posts.push(post);
+      // if (post.title !== "" && post.body !== "") {
+      //   this.posts.push({
+      //     id: Date.now(),
+      //     title: this.title,
+      //     body: this.body,
+      //   });
+      // }
     },
   },
 };
